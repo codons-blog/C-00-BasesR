@@ -23,5 +23,57 @@ a
 # Module 1.1 - Le langage et les objets ----
 
 # Deux grandes structures dans R : les fonctions (instructions) et les objets (informations)
+
 # Regles de nommage : [a-z], [A-Z], [0-9], "_", "."
+
 # Caracteres speciaux : # pour commenter du code, ";" pour separer plusieurs instructions
+
+# Operateurs arithmetiques :
+# addition : 1+2
+# soustraction : 1-2
+# division : 10/2
+# multiplication : 2*3
+# reste de la division entiere : 10%%3
+# quotient de la division entiere : 10%/%3
+
+# Operateurs de comparaison :
+# superieur : >
+# superieur ou egal : >=
+# inferieur : <
+# inferieur ou egal : <=
+# egal : ==
+# different : !=
+
+# Operateurs logiques :
+# et : &
+# ou : |
+# non : !
+
+# Operateurs d'assignation : <- et =
+# Module 1.1 - Pratiq'R ----
+
+# Ex.1
+# largeur_sepales, largeur_sepales, longueur_petales, largeur_petales, espece
+
+# Ex.2
+NULL <- 12
+?NULL
+
+# Ex.3
+a <- 12 ; a <- 5 # a <- 20
+a
+
+# Ex.4
+5 - 2 + 10
+5 + 2 * 3
+6 / 2 * 4 / 2
+8 * 2 / 2^3
+
+# Ex.5
+(12 + 200) * 3 / 2 - (2 * 3)^3
+
+# Ex.6
+a <- b <- c <- 12
+
+# Module 1.2 - Les fonctions ----
+
