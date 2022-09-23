@@ -77,3 +77,16 @@ a <- b <- c <- 12
 
 # Module 1.2 - Les fonctions ----
 
+VectNum <- 1:5
+VectNum
+log(x = VectNum, base = exp(1))
+
+log(x = 4, base = 10)
+log(base = 10, x = 4)
+log(4, 10)
+log(10, 4)
+log(4, base = 10)
+log(x = 4, 10)
+
+# Module 1.2 - Pratiq'R ----
+
