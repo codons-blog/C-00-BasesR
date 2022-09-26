@@ -346,3 +346,183 @@ sort(chickwts$weight, decreasing = TRUE)
 # Ex.2
 chickwts[order(chickwts$feed), ]
 chickwts[order(chickwts$feed, chickwts$weight), ]
+
+# Module 3.1 - Representations graphiques ----
+
+# Une variable quantitative
+hist(x = iris$Sepal.Length,
+     main = "Longueur des sépales", xlab = "Longueur", ylab = "Probabilité",
+     breaks = seq(4, 8, 0.25),
+     xlim = c(4, 8),
+     freq = FALSE)
+
+# Une variable qualitative
+Couleurs <- c(Bleu = 5, Rouge = 10, Jaune = 8, Noir = 7)
+
+barplot(Couleurs,
+        col = c("blue", "red", "yellow", "black"),
+        space = 0.6,
+        main = "Distribution des couleurs")
+
+pie(Couleurs, col = c("blue", "red", "yellow", "black"),
+    main = "Diagramme circulaire")
+
+dotchart(Couleurs,
+         col = c("blue", "red", "yellow", "black"),
+         main = "Dotchart")
+
+# Les couples de variables
+# quant/quant (plot) ; qual/quant (boxplot) : qual/qual (barplot)
+
+plot(Sepal.Width ~ Sepal.Length, data = iris,
+     xlab = "Longueur des sépales",
+     ylab = "Largeur des sépales",
+     main = "Relation entre 2 variables")
+
+boxplot(Petal.Length ~ Species, data = iris)
+
+data("HairEyeColor")
+males <- HairEyeColor[,,1]
+females <- HairEyeColor[,,2]
+d1 <- males + females
+
+barplot(d1, legend.text = TRUE)
+barplot(d1, legend.text = TRUE, beside = TRUE)
+barplot(d1, legend.text = TRUE, beside = TRUE,
+        col = c("black", "brown", "red", "yellow"))
+
+# Plusieurs variables
+pairs(iris)
+
+# Module 3.1 - Pratiq"R
+
+# Ex.1
+hist(iris$Sepal.Length, xlab = "Longueur des sépales", ylab = "Fréquence")
+
+# Ex.2
+plot(Sepal.Length ~ Sepal.Width, data = iris)
+
+# Ex.3
+boxplot(count ~ spray, data = InsectSprays)
+
+# Module 3.2 - Enrichir un graphique ----
+
+# Personnaliser un graphique
+
+# titre : main
+# axes : xlab, ylab
+# bornes : xlim, ylim
+# couleur : col
+
+# type de symbole pour les points : pch
+# taille des symboles : cex
+
+plot(Sepal.Width ~ Sepal.Length, data = iris,
+     xlab = "Longueur des sépales", ylab = "Largeur des sépales",
+     main = "Relation entre 2 variables",
+     col = "red", pch = 19, cex = 2)
+
+# Ajouter des elements a un graphique
+
+# points() pour ajouter des points
+# text() pour ajouter du texte
+# abline() pour ajouter des droites
+# lines() pour ajouter des lignes
+# arrows() pour ajouter des fleches
+# axis() pour ajouter/modifier les axes
+
+plot(Petal.Width ~ Petal.Length, data = iris)
+points(x = 3.76, y = 1.20, pch = "+", col = "red")
+text(x = 3, y = 1.8, label = "Moyenne", col = "red")
+arrows(x0 = 3.7, y0 = 1.25, x1 = 3, y1 = 1.7,
+       code = 1, col = "red", length = 0.15, lwd = 1)
+axis(side = 3)
+
+# Module 3.2 - Pratiq'R
+
+plot(Sepal.Length ~ Sepal.Width, data = subset(iris, Species == "setosa"), col = "red", pch = 19)
+plot(Sepal.Length ~ Sepal.Width, data = subset(iris, Species == "versicolor"), col = "blue", pch = 15)
+plot(Sepal.Length ~ Sepal.Width, data = subset(iris, Species == "virginica"), col = "green", pch = 17)
+
+# Module 3.3 - Modifier des graphiques ----
+
+
+
+# 3 zones : 
+# 1) marges exterieures 
+# notees 1 (en bas), 2 (gauche), 3 (en haut) et 4 (droite)
+# oma : dimension des marges en nb de lignes -> par(oma(2, 2, 2, 2))
+# omi : dimension des marges en nb de pouces
+
+# 2) marges interieures
+# mar -> nb de lignes
+# mai -> pouces
+
+# 3) zone de donnees
+
+par(oma = c(2, 2, 2, 2), mar = c(2, 2, 2, 2))
+plot(1, 1, type = "n", frame.plot = TRUE, axes = FALSE, xlab = NA, ylab = NA)
+box(which = "outer", col = "red")
+box(which = "inner", col = "blue")
+mtext(text = "Marge exterieure 3", side = 3, line = 1, outer = TRUE, col = "red")
+mtext(text = "Marge exterieure 4", side = 4, line = 1, outer = TRUE, col = "red")
+mtext(text = "Marge interieure 1", side = 1, line = 1, outer = TRUE, col = "blue")
+mtext(text = "Marge interieure 2", side = 2, line = 1, outer = TRUE, col = "blue")
+
+# Module 3.3 - Pratiq'R
+
+par(oma = c(2, 0, 3, 0) + 0.1, mar = c(4, 4, 0, 1) + 0.1)
+plot(Sepal.Length ~ Sepal.Width, data = iris)
+mtext(text = "Relation entre la longueur et la largueur des sépales", adj = 0,
+      side = 3, line = 2, col = "blue", outer = TRUE)
+mtext(text = "Trois espèces d'iris : setosa, versicolor et virginica", adj = 0,
+      side = 3, line = 1, col = "blue", outer = TRUE)
+mtext(text = "Créé avec R", adj = 1, cex = 1.5,
+      side = 1, col = "red", outer = TRUE)
+
+# Module 3.4 - Associer des graphiques ----
+
+# Diviser une zone de graphiques en cases :
+# mfcol() et mfrow()
+
+par(mfcol = c(2, 3))
+hist(iris$Sepal.Length)
+hist(iris$Sepal.Width)
+boxplot(iris$Sepal.Length)
+boxplot(iris$Sepal.Width)
+plot(Sepal.Length ~ Sepal.Width, data = subset(iris, Species == "setosa"))
+plot(Sepal.Length ~ Sepal.Width, data = subset(iris, Species == "versicolor"))
+par(mfcol = c(1, 1))
+
+# Module 3.4 - Pratiq'R
+
+par(mfrow = c(2, 2), mar = c(4, 4, 1, 1))
+plot(Sepal.Length ~ Sepal.Width, data = iris, xlim = c(2, 4.4), ylim = c(4.3, 7.9))
+plot(Sepal.Length ~ Sepal.Width, data = subset(iris, Species == "setosa"), pch = 19, col = "red")
+plot(Sepal.Length ~ Sepal.Width, data = subset(iris, Species == "versicolor"), pch = 15, col = "blue")
+plot(Sepal.Length ~ Sepal.Width, data = subset(iris, Species == "virginica"), pch = 17, col = "green")
+
+# Module 3.5 - Sauvegarder les graphiques ----
+
+# format image (matrice composee de pixels) : .gif, .jpg, .png, .tiff, ...
+# format vectoriel (description geometrique des elementes graphiques) : .eps, .pdf, .svg
+
+# image : tiff(), jpeg(), png()
+# vectoriel : pdf(), postcript()
+
+png(filename = "img.png")
+plot(x = 1:5, y = 21:25)
+dev.off()
+
+# Module 3.5 - Pratiq'R
+
+png(filename = "img.png")
+plot(x = 1:5, y = 21:25)
+dev.off()
+
+pdf(file = "img.pdf")
+plot(x = 1:5, y = 21:25)
+dev.off()
+
+# Module 4.1 - Les structures de controle ----
+
