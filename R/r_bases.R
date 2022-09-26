@@ -526,3 +526,146 @@ dev.off()
 
 # Module 4.1 - Les structures de controle ----
 
+
+
+# if (condition) {instructions a executer si la condition est VRAIE}
+if (49 %% 7 == 0) {print("C'est un multiple de 7")}
+if (45 %% 7 == 0) {print("C'est un multiple de 7")}
+
+# if (condition) {instructions a executer si la condition est VRAIE
+# } else {
+# instructions a executer si la condition est FAUSSE}
+if (49 %% 7 == 0) {
+  print("C'est un multiple de 7")
+} else {
+  print("Ce n'est pas un multiple de 7")
+}
+
+if (45 %% 7 == 0) {
+  print("C'est un multiple de 7")
+} else {
+  print("Ce n'est pas un multiple de 7")
+}
+
+# ifelse(test, yes, no)
+x <- seq(1, 10, 1)
+ifelse(x %% 2 == 0, "Pair", "Impair")
+
+x <- seq(-5, 5, 1)
+ifelse(x > 0, x, abs(x))
+
+# all() -> teste si la condition est vraie pour tous les elements d'un vecteur
+x <- seq(-4, 4, 1)
+all(x > 0)
+
+# any() -> teste si la condition est vraie pour un moins un des elements d'un vecteur
+any(x > 0)
+
+# Module 4.1 - Pratiq'R
+
+Longueur <- c(12.2, 6.1, -99, -2, -9, -99, 4.5)
+Longueur
+ifelse(Longueur == -99, NA, Longueur)
+
+# Module 4.2 - Les boucles ----
+
+# for() : nb connu d'iterations
+# for (valeurs dans un vecteur) {bloc d'instructions}
+
+for (i in c(1, 2, 3, 4, 5)) {
+  print(i^2)
+}
+
+for (i in c(1, 6, 9, 10)) {
+  print(i^2)
+}
+
+for (i in c("a", "b", "e", "trois")) {
+  print(i)
+}
+
+# while() : nb d'iterations conditionne au resultat d'un test
+# while (test) {bloc d'instructions}
+i <- 1
+while(i^2 < 30) {
+  print(i)
+  i <- i + 1
+}
+
+# Module 4.2 - Pratiq'R
+
+# Ex.1
+i <- 0
+while(i^2 < 100) {
+  print(i)
+  i <- i + 1
+}
+
+# Ex.2
+for (i in 1:3) {
+  for (j in (i + 1):4) {
+    plot(iris[, i] ~ iris[, j], xlab = names(iris)[j], ylab = names(iris)[i],
+         cex = 0.5, main = "Relation entre ...")
+  }
+}
+
+# Module 4.3 - La fonction apply() et ses derives ----
+
+# apply() applique une fonction sur les marges d'une matrice ou d'un tableau
+# apply(X = ..., MARGIN = 1 (lignes) ou 2 (colonnes), FUN = ...)
+m <- matrix(1:20, nrow = 5, ncol = 4)
+m
+apply(X = m, MARGIN = 1, FUN = sum)
+
+# tapply() applique a un vecteur une fonction selon les modalites d'une ou de plusieurs autres variables
+# tapply(X = ..., INDEX = ..., FUN = ...)
+Num <- 1:15
+groupe <- rep(c("A", "B", "C"), each = 5)
+tapply(X = Num, INDEX = groupe, FUN = sum)
+
+# Module 4.3 - Pratiq'R
+tapply(InsectSprays$count, InsectSprays$spray, mean)
+
+# Module 4.4 - La creation de fonctions et l'utilisation de packages ----
+
+# function (liste d'arguments) {commandes}
+TTC <- function(HT, TVA = 20/100) {
+  TTC = HT * (1 + TVA)
+  return(TTC)
+}
+
+TTC(HT = 100)
+
+corplot <- function(x, y, plotit = FALSE) {
+  if (plotit == TRUE) plot(x, y)
+  valeur = cor(x, y)
+  return(valeur)
+}
+
+corplot(x = 1:10, y = rnorm(10), plotit = TRUE)
+
+# install.packages("nom-du-package")
+# library(nom-du-package)
+
+# Module 4.4 - Pratiq'R
+
+# Ex.1
+CtoF <- function(deg_f) {
+  deg_c <- (deg_f - 32) / (9/5)
+  return(deg_c)
+}
+
+CtoF(100)
+
+# Ex.2
+# 1, 1, 2, 3, 5, 8, 13
+Fibonacci <- function(x = 3) {
+  Res <- rep(NA, times = x)
+  Res[1] <- 1
+  Res[2] <- 1
+  
+  for (i in 3:x) Res[i] <- Res[i - 2] + Res[i - 1]
+  return(Res)
+}
+
+Fibonacci(x = 7)
